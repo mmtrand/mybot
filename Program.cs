@@ -14,6 +14,7 @@ namespace RequestResponse
         static void Main(string[] args)
         {
             string filePath = Path.GetFullPath("config.json");
+            //MOhamed Comment this
             SymBotClient symBotClient = new SymBotClient(); 
             DatafeedEventsService datafeedEventsService = new DatafeedEventsService(); 
             SymConfig symConfig = symBotClient.initBot(filePath);    
