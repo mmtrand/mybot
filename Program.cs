@@ -16,8 +16,18 @@ namespace RequestResponse
             string filePath = Path.GetFullPath("config.json");
             //MOhamed Comment this 655655555555555555555555 bbb
             SymBotClient symBotClient = new SymBotClient(); 
-            DatafeedEventsService datafeedEventsService = new DatafeedEventsService(); 
-            SymConfig symConfig = symBotClient.initBot(filePath);    
+            DatafeedEventsService datafeedEventsService = new DatafeedEventsService();
+
+            SymConfig symConfig =null;
+            try
+            {
+                symConfig = symBotClient.initBot(filePath);
+            }
+            catch(Exception ex)
+            {
+
+            }
+
             RoomListener botLogic = new BotLogic();
             DatafeedClient datafeedClient = datafeedEventsService.init(symConfig);
             Datafeed datafeed = datafeedEventsService.createDatafeed(symConfig, datafeedClient);
