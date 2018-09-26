@@ -33,7 +33,7 @@ namespace RequestResponse
         public void onRoomMessage(Message inboundMessage)
         {
             string filePath = Path.GetFullPath("config.json");
-            SymBotClient symBotClient = new SymBotClient();
+            SymBotClient symBotClient = new SymBotClient(); 
             SymConfig symConfig = symBotClient.initBot(filePath);
             Message message2 = new Message();
             message2.message = "<messageML> Hi "+inboundMessage.user.firstName+"!</messageML>";
