@@ -7,18 +7,18 @@
   "podPort": 443,
   "agentHost": "develop2.symphony.com",
   "agentPort": 443,
-  "botCertPath": "c:/Mihail/mybot/certificates/",
-  "botCertName": "bot.user48",
+  "botCertPath": "E:/certificates/",
+  "botCertName": "bot.user49",
   "botCertPassword": "changeit",
-  "botEmailAddress": "bot.user48@example.com",
-  "appCertPath": "c:/Mihail/mybot/certificates/",
+  "botEmailAddress": "bot.user49@example.com",
+  "appCertPath": "E:/certificates/",
   "appCertName": "",
   "appCertPassword": "changeit",
   "proxyURL": "",
   "proxyUsername": "",
   "proxyPassword": "",
   "authTokenRefreshPeriod": "30",
-  "truststorePath": "c:/Mihail/mybot/certificates/all_symphony_certs_truststore",
+  "truststorePath": "E:/certificates/",
   "truststorePassword": "changeit"
 
 }

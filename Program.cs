@@ -11,23 +11,14 @@ namespace RequestResponse
 {
     class Program
     {
+        public static SymConfig symConfig { get; set; }
         static void Main(string[] args)
         {
             string filePath = Path.GetFullPath("config.json");
-            //MOhamed Comment this 655655555555555555555555 bbb
+            
             SymBotClient symBotClient = new SymBotClient(); 
             DatafeedEventsService datafeedEventsService = new DatafeedEventsService();
-
-            SymConfig symConfig =null;
-            try
-            {
-                symConfig = symBotClient.initBot(filePath);
-            }
-            catch(Exception ex)
-            {
-
-            }
-
+            symConfig = symBotClient.initBot(filePath);
             RoomListener botLogic = new BotLogic();
             DatafeedClient datafeedClient = datafeedEventsService.init(symConfig);
             Datafeed datafeed = datafeedEventsService.createDatafeed(symConfig, datafeedClient);
@@ -38,6 +29,7 @@ namespace RequestResponse
 
     public class BotLogic : RoomListener
     {
+        
         public void onRoomMessage(Message inboundMessage)
         {
             string filePath = Path.GetFullPath("config.json");
@@ -48,14 +40,35 @@ namespace RequestResponse
             MessageClient messageClient = new apiClientDotNet.MessageClient();
             messageClient.sendMessage(symConfig, message2, inboundMessage.stream);
 
+            
+
         }
-        public void onRoomCreated(RoomCreated roomCreated) { }
+
+        public void onRoomCreated(RoomCreated roomCreated)
+        {
+            Console.WriteLine("Room " + roomCreated.roomProperties.name);
+
+        }
         public void onRoomDeactivated(RoomDeactivated roomDeactivated) { }
         public void onRoomMemberDemotedFromOwner(RoomMemberDemotedFromOwner roomMemberDemotedFromOwner) { }
         public void onRoomMemberPromotedToOwner(RoomMemberPromotedToOwner roomMemberPromotedToOwner) { }
         public void onRoomReactivated(apiClientDotNet.Models.Stream stream) { }
-        public void onRoomUpdated(RoomUpdated roomUpdated) { }
-        public void onUserJoinedRoom(UserJoinedRoom userJoinedRoom) { }
+
+        public void onRoomUpdated(RoomUpdated roomUpdated)
+        {
+            Message message2 = new Message();
+            message2.message = "<messageML> Hi " + roomUpdated.stream.roomName + "!</messageML>";
+            MessageClient messageClient = new apiClientDotNet.MessageClient();
+            messageClient.sendMessage(Program.symConfig, message2, roomUpdated.stream);
+        }
+
+        public void onUserJoinedRoom(UserJoinedRoom userJoinedRoom)
+        {
+            Message message2 = new Message();
+            message2.message = "<messageML> Hi " + userJoinedRoom.affectedUser.firstName + "!</messageML>";
+            MessageClient messageClient = new apiClientDotNet.MessageClient();
+            messageClient.sendMessage(Program.symConfig, message2, userJoinedRoom.stream);
+        }
         public void onUserLeftRoom(UserLeftRoom userLeftRoom) { }
     }
 }
