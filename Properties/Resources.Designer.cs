@@ -22,7 +22,7 @@ namespace RequestResponse.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace RequestResponse.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RequestResponse.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace RequestResponse.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace RequestResponse.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Which application do you want to access ?.
         /// </summary>
-        internal static string ApplicationChoicesResponse {
+        public static string ApplicationChoicesResponse {
             get {
                 return ResourceManager.GetString("ApplicationChoicesResponse", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace RequestResponse.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Please chose the application you want to access from the list :).
         /// </summary>
-        internal static string ChoseApplicationResponse {
+        public static string ChoseApplicationResponse {
             get {
                 return ResourceManager.GetString("ChoseApplicationResponse", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace RequestResponse.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Please chose your language !.
         /// </summary>
-        internal static string LanguageChoiceResponse {
+        public static string LanguageChoiceResponse {
             get {
                 return ResourceManager.GetString("LanguageChoiceResponse", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace RequestResponse.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Please be patient... we are sending a request to Line Manager.
         /// </summary>
-        internal static string SendingRequestToLineManagerResponse {
+        public static string SendingRequestToLineManagerResponse {
             get {
                 return ResourceManager.GetString("SendingRequestToLineManagerResponse", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace RequestResponse.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Sorry... I didn&apos;t understand your choice !.
         /// </summary>
-        internal static string WrongChoiceResponse {
+        public static string WrongChoiceResponse {
             get {
                 return ResourceManager.GetString("WrongChoiceResponse", resourceCulture);
             }

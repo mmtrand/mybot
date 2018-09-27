@@ -1,8 +1,8 @@
 {
   "sessionAuthHost": "develop2-api.symphony.com",
-  "sessionAuthPort": 8444,
+  "sessionAuthPort": 443,
   "keyAuthHost": "develop2-api.symphony.com",
-  "keyAuthPort": 8444,
+  "keyAuthPort": 443,
   "podHost": "develop2.symphony.com",
   "podPort": 443,
   "agentHost": "develop2.symphony.com",
