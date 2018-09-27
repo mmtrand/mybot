@@ -42,42 +42,46 @@ namespace RequestResponse
                     if (messageContent.IsLanguageChoice())
                     {
                         SetCurrentLanguage(messageContent);
+                        currentState = BotState.LanguageChosen;
                     }
                     else
                     {
                         currentState = BotState.Initial;
                     }
                 }
-
-                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                    MessageFactory.CreateTextMessage(Resources.ApplicationChoicesResponse));
-
-                if (messageContent.IsAccessRequest())
+                if (currentState == BotState.LanguageChosen)
                 {
                     SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage(Resources.ApplicationChoicesResponse));
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateChoicesMessage((IList<BnppApplication>)ApplicationList));
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage(Resources.ChoseApplicationResponse));
-                }
-                if (messageContent.IsApplictionChoice())
-                {
-                    var app = messageContent.GetUserChoice();
+                        MessageFactory.CreateTextMessage(Properties.Resources.ApplicationChoicesResponse));
 
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage($"You have chosen { app.Name }"));
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage(app.Description));
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage(Resources.SendingRequestToLineManagerResponse));
-                }
-                else
-                {
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage(Resources.WrongChoiceResponse));
+                    if (messageContent.IsAccessRequest())
+                    {
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateTextMessage(Properties.Resources.ApplicationChoicesResponse));
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateChoicesMessage((IList<BnppApplication>)ApplicationList));
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateTextMessage(Properties.Resources.ChoseApplicationResponse));
+                    }
+                    if (messageContent.IsApplictionChoice())
+                    {
+                        var app = messageContent.GetUserChoice();
+
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateTextMessage($"You have chosen { app.Name }"));
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateTextMessage(app.Description));
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateTextMessage(Properties.Resources.SendingRequestToLineManagerResponse));
+                    }
+                    else
+                    {
+                        SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                            MessageFactory.CreateTextMessage(Properties.Resources.WrongChoiceResponse));
+                    }
                 }
             }
+                
 
         }
 
