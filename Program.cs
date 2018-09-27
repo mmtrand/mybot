@@ -57,6 +57,19 @@ namespace RequestResponse
             if (!inboundMessage.IsFromTheBot())
             {
                 var messageContent = inboundMessage.message.StripHTML();
+
+                if (currentState == BotState.ChosingLanguage)
+                {
+                    if (messageContent.IsLanguageChoice())
+                    {
+                        SetCurrentLanguage(messageContent);
+                    }
+                    else
+                    {
+                        currentState = BotState.Initial;
+                    }
+                }
+
                 SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
                     MessageFactory.CreateTextMessage(ApplicationChoicesResponse));
 
@@ -89,7 +102,12 @@ namespace RequestResponse
             
         }
 
-       
+        private void SetCurrentLanguage(string messageContent)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture =
+                System.Globalization.CultureInfo.GetCultureInfo(messageContent);
+        }
+
 
         private void SendMessageTo(string name, Stream stream, Message message)
         {

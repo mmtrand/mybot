@@ -8,6 +8,11 @@ namespace RequestResponse
 {
     public static class StringExtensions
     {
+        public static bool IsLanguageChoice(this string message)
+        {
+            return message == "Fr" || message == "Eng";
+        }
+
         public static bool IsAccessRequest(this string message)
         {
             return message.IndexOf("ApplicationAccess", StringComparison.InvariantCultureIgnoreCase) > -1;

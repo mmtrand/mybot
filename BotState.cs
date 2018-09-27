@@ -1,9 +1,6 @@
 ﻿namespace RequestResponse
 {
-    public class StatefulBot
-    {
-        public 
-    }
+    
     public enum BotState
     {
         Initial,
