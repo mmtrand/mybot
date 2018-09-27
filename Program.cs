@@ -41,16 +41,33 @@ namespace RequestResponse
         }
         public void onRoomMessage(Message inboundMessage)
         {
-
-            var messageContent = inboundMessage.message;
-            if (messageContent.IsAccessRequest())
+            if (!inboundMessage.IsFromTheBot())
             {
-                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                    MessageFactory.CreateTextMessage("Which application do you want to access?") );
-                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream, 
-                    MessageFactory.CreateChoicesMessage(ApplicationList));
+                var messageContent = inboundMessage.message;
+                if (messageContent.IsAccessRequest())
+                {
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage("Which application do you want to access?"));
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateChoicesMessage(ApplicationList));
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage("Please chose the application you want to access from the list :)"));
+                }
+                if (messageContent.IsApplictionChoice())
+                {
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage($"You have chosen { messageContent.GetUserChoice() }"));
 
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage($"Please be patient... we are sending a request to Line Manager"));
+                }
+                else
+                {
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage("I didn't understand your choice !"));
+                }
             }
+            
         }
 
        
@@ -105,12 +122,12 @@ namespace RequestResponse
         public static Message CreateChoicesMessage(IList<BnppApplication> list)
         {
             Message message = new Message();
-            string content = "<messageML> <ul>";
+            string content = "<messageML><ul>";
             foreach (var element in list)
             {
-                content += $"<li>{element.Id})- {element.Name}"; 
+                content += $"<li>{element.Id})- {element.Name}</li>"; 
             }
-            message.message = "<messageML>" + content + "!</messageML>";
+            message.message = content + "</ul></messageML>";
             return message;
         }
     }

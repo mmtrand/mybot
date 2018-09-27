@@ -13,7 +13,7 @@ namespace RequestResponse
             },
             new BnppApplication()
             {
-                Id = 1,
+                Id = 2,
                 Name = "TraderApp"
             },
             new BnppApplication()
@@ -21,6 +21,6 @@ namespace RequestResponse
                 Id = 3,
                 Name = "Portfolio Manager"
             }
-        }
+        };
     }
 }
