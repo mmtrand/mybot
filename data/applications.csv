@@ -1,0 +1,5 @@
+Name,Description,Owner,Security,Installer
+ResearchPlatform,A transversal repository of all company research (e.g. publications; ratings; etc...),Mihail,Mohamed,Paul
+TraderApp,Creates and tracks trades in real-time,Mihail,Mohamed,Paul
+PortfolioManager,Manages portfolio positions, creates model, simulates trade strategies,Mihail,Mohamed,Paul
+ComplianceOffice,Validates trades against company compliance rules,Mihail,Mohamed,Paul

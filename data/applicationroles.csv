@@ -1,0 +1,9 @@
+ApplicationName,Role
+ResearchPlatform,ReadOnly
+ResearchPlatform,Publisher
+TraderApp,ReadOnly
+TraderApp,Trader
+PortfolioManager,ReadOnly
+PortfolioManager,Manager
+ComplianceOffice,ReadOnly
+ComplianceOffice,Officer
