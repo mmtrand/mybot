@@ -1,0 +1,20 @@
+WelcomeUser?,"""Salut!  Comment puis-je t' aider?  Pour demander access à une de nos applications, il siffit de tapper ApplicationAccess puis le nom de l'application dont tu as besoin"""
+SyntaxError?,"""Désolée, je n'ai pas capté ce que tu veux dire.  Merci de demander access en tappant ApplicationAccess suivi par le nom de l'application  Pour tout voir, essaie ApplicationAccess ListAll"
+RoleSelect,Tu as besoin de quel role? 
+ListRoles,"""Pour cette applciation, j'ai les roles suivants: """
+AppNameError ,"""Desolée, cette application n'est pas dans le catalogue.  Dit ApplicationAccess ListAll pour avoir la liste complete"""
+InformLineInvite,“Laisse-moi regarder avec ton line manager à &APPNAME”
+AskLinePermission ,"“Salut @LineManager!  En tant que N+1, est-ce que tu autorises  @User à avoir un access à  &APPNAME comme &ROLENAME??Yes/No”"
+LineApproved?,“Merci @LineManager!  Ton bulot est terminé J”
+InformAppManInvite,Je vais juste regarder avec l'application manager si tu peux acceder à &APPNAME”
+AskAppManPermission,"“Salut @LineManager!  En tant que App Manager pour @APPNAME, est-ce tu autorises  @User pour avoir acces comme &ROLENAME??Yes/No”"
+AppApproved?,“Merci @App Manager!  Ton bulot est terminé J”
+Refusal?,"“Desolée, mais access et refusé.  Merci de essayer a nouveau ulterierement”"
+InformSecurityInvite,Je vais juste regarder avec la securioté IT si tu peux acceder à &APPNAME”
+AskSecurityPermission,"“Salut @Security!  En tant que Security Manager pour @APPNAME, est-ce tu autorises  @User à avoir acces comme &ROLENAME??Yes/No”"
+SecApproved?,“Merci @Security!  Ton boulot ici est terminé J”
+AppApproved,"“Felicitations @User, access est approuvé! Faissons l'instilations maintenant.”"
+AskInstall,"“Salit @Helpdesk!  Comem tu vois, tout les approuval neccessaires sont effectué pour donner access à  @User pour &APPNAME comme un &ROLENAME. Pourriais-tu proceder à l'installation meme et la creation de son compte?  Une foir terminé, merci de répondre avec  ‘Done’”"
+Approved?,“Merci @Helpdesk!? @User tu as désormais access à  &APPNAME! Merci de valider que tout va bien.  Tout marche comme il faut?  Yes/No”
+BADINSTALL?,"“AH zut.  Quel est le problème?  @Helpdesk,pourrais-tui faire le néccesaire pour débloquer @User? “"
+GOODINSTALL?,“I mpeccable!  Je ferme ce chatroom dans quelques seconds”

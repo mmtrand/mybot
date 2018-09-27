@@ -1,0 +1,21 @@
+Phase,Name,English
+App and Role Selection,WelcomeUser?,“Hi!  How can I help? To ask for access to one of our apps type ApplicationAccess and then the name of the app that you need”
+App and Role Selection,SyntaxError?,"“Sorry, I didn’t quite get that.  Please ask for an application by typing ApplicationAccess followed by an application name.  To list all then use ApplicationAccess ListAll”"
+App and Role Selection,RoleSelect,“Which role do you need?”
+App and Role Selection,ListRoles,"""For that application I have the following roles: “"
+App and Role Selection,AppNameError ,"""Sorry, that application isn’t in our catalogue.  Say ApplicationAccess List to have a full list."
+Line Manager Approval,InformLineInvite,“Let me just check with your line manager if you can get access to &APPNAME”
+Line Manager Approval,AskLinePermission ,"“Hi @LineManager!  As line manager, do you authorise  @User to have access to &APPNAME as a &ROLENAME??Yes/No”"
+Line Manager Approval,LineApproved?,“Thanks @LineManager!  Your work is done J”
+App Manager Approval,InformAppManInvite,“Let me just check with the app manager if you can get access to &APPNAME”
+App Manager Approval,AskAppManPermission,"“Hi @LineManager!  As App manager for @APPNAME, do you authorise  @User to have access as a &ROLENAME??Yes/No”"
+App Manager Approval,AppApproved?,“Thanks @App Manager!  Your work is done J”
+App Manager Approval,Refusal?,"“Sorry, access has been refused.  This room will be shut down”"
+Security Approval,InformSecurityInvite,“Let me just check with the IT Security team if you can get access to &APPNAME”
+Security Approval,AskSecurityPermission,"“Hi @Securityr!  As IT Security manager for @APPNAME, do you authorise  @User to have access as a &ROLENAME??Yes/No”"
+Security Approval,SecApproved?,“Thanks @Security!  Your work is done J”
+Installation,AppApproved,"“Congrats @User, access is aprpoved! Lets get you the application installed.”"
+Installation,AskInstall,"“Hi @Helpdesk!  As you can see, the relevant approval path to grant @User access to &APPNAME as a &ROLENAME.Can you kindly intall the application and create the relevant user role?  Once completed, please respond with ‘Done’”"
+Installation,Approved?,“Thanks @Helpdesk!? @User you now have access to &APPNAME! Please validate that you have access.  Is it correctly installed?  Yes/No”
+Installation,BADINSTALL?,"“Oh dear.  What was the problem?  @Helpdesk, can you please make any changes you need? “"
+END,GOODINSTALL?,“Great!  I’ll now close down this chat in a few seconds”
