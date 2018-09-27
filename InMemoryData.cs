@@ -74,6 +74,12 @@ namespace RequestResponse
                 ManagerId = 1
             }
         };
+
+        public static IList<string> Languages = new List<string>()
+        {
+            "Fr",
+            "Eng"
+        };
         public static IList<BnppApplicationRole> ApplicationRoleList { get; set; } = new List<BnppApplicationRole>()
         {
             new BnppApplicationRole()

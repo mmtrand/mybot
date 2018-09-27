@@ -15,12 +15,9 @@ namespace RequestResponse
 
         public static bool IsApplictionChoice(this string message)
         {
-            message = message.Replace("<div data-format=\"PresentationML\" data-version=\"2.0\" class=\"wysiwyg\">","");
-            Regex regex = new Regex(@"[\d]");
-            if (regex.IsMatch(message))
+            var appId = 0;
+            if (int.TryParse(message, out appId))
             {
-                var appIdString = regex.Match(message);
-                var appId = Convert.ToInt16(appIdString.Value);
                 return InMemoryData.ApplicationList.Any(p => p.Id == appId);
             }
             else
@@ -29,18 +26,20 @@ namespace RequestResponse
             }
         }
 
-        public static string GetUserChoice(this string message)
+        public static BnppApplication GetUserChoice(this string message)
         {
-            message = message.Replace("<div data-format=\"PresentationML\" data-version=\"2.0\" class=\"wysiwyg\">", "");
-            Regex regex = new Regex(@"[\d]");
-            if (regex.IsMatch(message))
+
+            var appId = 0;
+            if (int.TryParse(message, out appId))
             {
-                var appIdString = regex.Match(message);
-                var appId = Convert.ToInt16(appIdString.Value);
-                return InMemoryData.ApplicationList.FirstOrDefault(p => p.Id == appId).Name;
+                return InMemoryData.ApplicationList.FirstOrDefault(p => p.Id == appId);
             }
-            
-            return InMemoryData.ApplicationList.FirstOrDefault(p => message.Contains(p.Name) ).Name;
+            return InMemoryData.ApplicationList.FirstOrDefault(p => p.Name == message);
+        }
+
+        public static string StripHTML(this string input)
+        {
+            return Regex.Replace(input, "<.*?>", String.Empty);
         }
 
     }

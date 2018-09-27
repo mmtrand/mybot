@@ -9,7 +9,7 @@ using apiClientDotNet.Models.Events;
 using System.Diagnostics;
 using System.Net.Mime;
 using Stream = apiClientDotNet.Models.Stream;
-
+using static RequestResponse.Properties.Resources;
 namespace RequestResponse
 {
     class Program
@@ -34,37 +34,56 @@ namespace RequestResponse
 
     public class BotLogic : RoomListener
     {
+
+        private BotState currentState = BotState.Initial;
         public IList<BnppApplication> ApplicationList { get; set; }
         public BotLogic()
         {
             this.ApplicationList = InMemoryData.ApplicationList;
         }
+
         public void onRoomMessage(Message inboundMessage)
         {
+            if (currentState == BotState.Initial)
+            {
+                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                    MessageFactory.CreateTextMessage(LanguageChoiceResponse));
+                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                    MessageFactory.CreateChoicesMessage(InMemoryData.Languages));
+                currentState = BotState.ChosingLanguage;
+            }
+           
+
             if (!inboundMessage.IsFromTheBot())
             {
-                var messageContent = inboundMessage.message;
+                var messageContent = inboundMessage.message.StripHTML();
+                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                    MessageFactory.CreateTextMessage(ApplicationChoicesResponse));
+
                 if (messageContent.IsAccessRequest())
                 {
                     SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage("Which application do you want to access?"));
+                        MessageFactory.CreateTextMessage(ApplicationChoicesResponse));
                     SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
                         MessageFactory.CreateChoicesMessage(ApplicationList));
                     SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage("Please chose the application you want to access from the list :)"));
+                        MessageFactory.CreateTextMessage(ChoseApplicationResponse));
                 }
                 if (messageContent.IsApplictionChoice())
                 {
-                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage($"You have chosen { messageContent.GetUserChoice() }"));
+                    var app = messageContent.GetUserChoice();
 
                     SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage($"Please be patient... we are sending a request to Line Manager"));
+                        MessageFactory.CreateTextMessage($"You have chosen { app.Name }"));
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage(app.Description));
+                    SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                        MessageFactory.CreateTextMessage(SendingRequestToLineManagerResponse));
                 }
                 else
                 {
                     SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
-                        MessageFactory.CreateTextMessage("I didn't understand your choice !"));
+                        MessageFactory.CreateTextMessage(WrongChoiceResponse));
                 }
             }
             
@@ -126,6 +145,19 @@ namespace RequestResponse
             foreach (var element in list)
             {
                 content += $"<li>{element.Id})- {element.Name}</li>"; 
+            }
+            message.message = content + "</ul></messageML>";
+            return message;
+        }
+
+        public static Message CreateChoicesMessage(IList<string> list)
+        {
+            Message message = new Message();
+            string content = "<messageML><ul>";
+            var counter = 0;
+            foreach (var element in list)
+            {
+                content += $"<li>{element}</li>";
             }
             message.message = content + "</ul></messageML>";
             return message;
