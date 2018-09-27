@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using apiClientDotNet.Models;
 using apiClientDotNet;
@@ -6,6 +7,8 @@ using apiClientDotNet.Listeners;
 using apiClientDotNet.Services;
 using apiClientDotNet.Models.Events;
 using System.Diagnostics;
+using System.Net.Mime;
+using Stream = apiClientDotNet.Models.Stream;
 
 namespace RequestResponse
 {
@@ -19,6 +22,8 @@ namespace RequestResponse
             SymBotClient symBotClient = new SymBotClient(); 
             DatafeedEventsService datafeedEventsService = new DatafeedEventsService();
             symConfig = symBotClient.initBot(filePath);
+
+            
             RoomListener botLogic = new BotLogic();
             DatafeedClient datafeedClient = datafeedEventsService.init(symConfig);
             Datafeed datafeed = datafeedEventsService.createDatafeed(symConfig, datafeedClient);
@@ -29,18 +34,34 @@ namespace RequestResponse
 
     public class BotLogic : RoomListener
     {
-        
+        public IList<BnppApplication> ApplicationList { get; set; }
+        public BotLogic()
+        {
+            this.ApplicationList = InMemoryData.ApplicationList;
+        }
         public void onRoomMessage(Message inboundMessage)
         {
-            string filePath = Path.GetFullPath("config.json");
-            SymBotClient symBotClient = new SymBotClient(); 
-            SymConfig symConfig = symBotClient.initBot(filePath);
-            Message message2 = new Message();
-            message2.message = "<messageML> Hi "+inboundMessage.user.firstName+"!</messageML>";
-            MessageClient messageClient = new apiClientDotNet.MessageClient();
-            messageClient.sendMessage(symConfig, message2, inboundMessage.stream);
 
-            
+            var messageContent = inboundMessage.message;
+            if (messageContent.IsAccessRequest())
+            {
+                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream,
+                    MessageFactory.CreateTextMessage("Which application do you want to access?") );
+                SendMessageTo(inboundMessage.user.firstName, inboundMessage.stream, 
+                    MessageFactory.CreateChoicesMessage(ApplicationList));
+
+            }
+        }
+
+       
+
+        private void SendMessageTo(string name, Stream stream, Message message)
+        {
+            string filePath = Path.GetFullPath("config.json");
+            SymBotClient symBotClient = new SymBotClient();
+            SymConfig symConfig = symBotClient.initBot(filePath);
+            MessageClient messageClient = new apiClientDotNet.MessageClient();
+            messageClient.sendMessage(symConfig, message, stream);
 
         }
 
@@ -70,5 +91,34 @@ namespace RequestResponse
             messageClient.sendMessage(Program.symConfig, message2, userJoinedRoom.stream);
         }
         public void onUserLeftRoom(UserLeftRoom userLeftRoom) { }
+    }
+
+    internal class MessageFactory
+    {
+        public static Message CreateTextMessage(string content)
+        {
+            Message message = new Message();
+            message.message = "<messageML>" + content + "!</messageML>";
+            return message;
+        }
+
+        public static Message CreateChoicesMessage(IList<BnppApplication> list)
+        {
+            Message message = new Message();
+            string content = "<messageML> <ul>";
+            foreach (var element in list)
+            {
+                content += $"<li>{element.Id})- {element.Name}"; 
+            }
+            message.message = "<messageML>" + content + "!</messageML>";
+            return message;
+        }
+    }
+
+
+    internal enum MessageTypes
+    {
+         SelectList,
+         Text
     }
 }
